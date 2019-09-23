@@ -1,7 +1,17 @@
 import java.util.Scanner;
-
 public class Query {
    public static void main(String[] args) {
+
+      SqliteDB database = new SqliteDB();
+      
+      String queryStatementExample = "SELECT * FROM POKE WHERE id = 1;";
+      
+      database.runQuery(queryStatementExample);
+      
+      database.closeConnection();
+      
+      
+
       // Display rules to user
       System.out.println("RULES:");
       System.out.println("Enter the Pokemon name followed by the attribute you would like to look up.");
