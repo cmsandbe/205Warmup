@@ -11,11 +11,11 @@ public class SqliteDB{
         //we connect to db here
         try {
             Class.forName("org.sqlite.JDBC");
-            //Pokemon.sqlite is the name of our database
-            connection=DriverManager.getConnection("jdbc:sqlite:Pokemon.sqlite");
+            //warmup.sqlite is the name of our database .sqlite file
+            connection=DriverManager.getConnection("jdbc:sqlite:warmup.sqlite");
             //if we got here, we connected
             System.out.println("Connection successful");
-            connection.close();
+//            connection.close();
         } catch (Exception e) {
             System.out.println("Error message: " + e.getMessage());
         }
@@ -31,14 +31,15 @@ public class SqliteDB{
     	try {
 			this.statement = connection.createStatement();
 			ResultSet results = statement.executeQuery(queryStatement);
+
 			while(results.next()) {
 				int id = results.getInt("TypeID");
 				String pokemonName = results.getString("Name");
 				String imageUrl = results.getString("ImageURL");
 				int primaryTypeID = results.getInt("T1ID");
 				int secondaryTypeID = results.getInt("T2ID");
-				
 				System.out.println("Pokemon: " + pokemonName);
+
 
 			}
 		} catch (SQLException e) {

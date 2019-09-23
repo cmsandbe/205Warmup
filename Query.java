@@ -4,10 +4,12 @@ public class Query {
 
       SqliteDB database = new SqliteDB();
       
-      String queryStatementExample = "SELECT * FROM POKE WHERE id = 1;";
-      
+      String queryStatementExample = "SELECT * FROM Poke WHERE Name = 'Charmeleon';";
+      String queryStatementExample2 = "SELECT * FROM Type WHERE typeid = '5';";
+
       database.runQuery(queryStatementExample);
-      
+//      database.runQuery(queryStatementExample2);
+
       database.closeConnection();
       
       
