@@ -42,7 +42,7 @@ public class SqliteDB{
 
 
 			}
-		} catch (SQLException e) {
+		} catch (SQLException | NullPointerException e) {
             System.out.println("Error message: " + e.getMessage());
 		}
     }
@@ -51,7 +51,7 @@ public class SqliteDB{
     public void closeConnection() {
     	try {
 			connection.close();
-		} catch (SQLException e) {
+		} catch (SQLException | NullPointerException e) {
             System.out.println("Error message: " + e.getMessage());
 		}
     }
