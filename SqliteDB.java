@@ -1,8 +1,5 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+
 public class SqliteDB{
     Connection connection = null;
     Statement statement = null;
@@ -95,6 +92,26 @@ public class SqliteDB{
 		}
     }
 
+	public boolean checkExist(String queryStatement, String userIn) {
+    	boolean exist = false;
+		try {
+			this.statement = connection.createStatement();
+			ResultSet results = statement.executeQuery(queryStatement);
+
+			while (results.next()) {
+				String pokemonName = results.getString("Name");
+				if (pokemonName.equals(userIn)) {
+					exist = true;
+				} else {
+					exist = false;
+				}
+			}
+
+		} catch (SQLException | NullPointerException e) {
+			System.out.println("Error message: " + e.getMessage());
+		}
+		return exist;
+	}
     
     public void closeConnection() {
     	try {
