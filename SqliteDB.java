@@ -39,6 +39,45 @@ public class SqliteDB{
 				int primaryTypeID = results.getInt("T1ID");
 				int secondaryTypeID = results.getInt("T2ID");
 				System.out.println("Pokemon: " + pokemonName);
+				
+
+
+			}
+		} catch (SQLException e) {
+            System.out.println("Error message: " + e.getMessage());
+		}
+    }
+    
+    public void runStatsQuery(String queryStatement) {
+    	try {
+			this.statement = connection.createStatement();
+			ResultSet results = statement.executeQuery(queryStatement);
+
+			while(results.next()) {
+				int id = results.getInt("TypeID");
+				String pokemonName = results.getString("Name");
+				int maxCP = results.getInt("MaxCP");
+				int maxHP = results.getInt("MaxHP");
+				System.out.println("Pokemon: " + pokemonName + " Has a MAX HP of " + maxHP);
+				//TODO: add logic of changing text and var to say max CP if user wants max CP
+
+
+			}
+		} catch (SQLException e) {
+            System.out.println("Error message: " + e.getMessage());
+		}
+    }
+    
+    public void runTypeQuery(String queryStatement) {
+    	try {
+			this.statement = connection.createStatement();
+			ResultSet results = statement.executeQuery(queryStatement);
+
+			while(results.next()) {
+				String typeName = results.getString("typeName");
+				String pokemonName = results.getString("Name");
+				System.out.println("Pokemon: " + pokemonName + " Has a primary type of " + typeName);
+				//TODO: add logic of changing text and var to say secondary type if its secondary type
 
 
 			}
