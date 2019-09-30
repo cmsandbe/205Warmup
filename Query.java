@@ -5,7 +5,7 @@ public class Query {
     private static SqliteDB database = new SqliteDB();
     private static Scanner keyboard = new Scanner(System.in);
     public static void main(String[] args) {
-
+    database.createTables(); // Create the tables in the DB
         // Display rules to user
         System.out.println("RULES:");
         System.out.println("Enter the Pokemon name followed by the attribute you would like to look up.");
