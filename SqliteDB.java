@@ -1,11 +1,12 @@
 import java.sql.*;
+import java.io.IOException;
 
 public class SqliteDB{
     Connection connection = null;
     Statement statement = null;
     String url = "";
 
-    SqliteDB(String fileName){
+    SqliteDB(String fileName) throws IOException{
     	// Code for this connection is from https://www.sqlitetutorial.net/sqlite-java/create-database/
     	 url = "jdbc:sqlite:" + System.getProperty("user.dir") + "/" + fileName;  // Make connection URL
     	 try (Connection conn = DriverManager.getConnection(url)) {  // Try connecting to DB, create new if needed
