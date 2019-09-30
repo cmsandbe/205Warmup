@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.io.IOException;
 
 public class Query {
-    private static SqliteDB database = new SqliteDB();
+    private static SqliteDB database = new SqliteDB("pokemon");
     private static Scanner keyboard = new Scanner(System.in);
     public static void main(String[] args) throws IOException{
     database.createTables(); // Create the tables in the DB
