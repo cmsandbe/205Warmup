@@ -1,12 +1,17 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.IOException;
+import java.io.*; 
 
 public class Query {
-    private static SqliteDB database = new SqliteDB("pokemon");
-    private static Scanner keyboard = new Scanner(System.in);
+
     public static void main(String[] args) throws IOException{
-    database.createTables(); // Create the tables in the DB
+        SqliteDB database = new SqliteDB();
+        Scanner keyboard = new Scanner(System.in);
+        database.createTables(); // Create the tables in the DB
+    	String url = System.getProperty("user.dir") + "/" + "warmup.sqlite";  // Make connection URL
+
+        File file = new File(url); 
         // Display rules to user
         System.out.println("RULES:");
         System.out.println("Enter the Pokemon name followed by the attribute you would like to look up.");
@@ -37,9 +42,9 @@ public class Query {
 
             //  Just name
             if (atts.size() == 0) {
-                checkPokName(name,input);
+//                checkPokName(name,input);
             } else {
-                checkPokName(name,input);
+//                checkPokName(name,input);
                 if (atts.contains("MaxCP") || atts.contains("MaxHP") || atts.contains("Type") || atts.contains("SecondaryType") || atts.contains("PictureOf")) {
                     if (atts.contains("MaxCP")) {
                         queryStatement = "      SELECT Poke.TypeID, Poke.Name, Stat.MaxCP\n" +
@@ -78,24 +83,25 @@ public class Query {
         }
 
 
-
         database.closeConnection();
+        file.delete();
+
     }
 
-    private static void checkPokName(String names, String input) {
-        String queryStatement;
-        queryStatement = "SELECT * FROM Poke WHERE Name = '" + names + "';";
-        boolean ava = database.checkExist(queryStatement,names);
-        if (ava) {
-            database.runQuery(queryStatement);
-        } else if (input.equals("END")) {
-            return;
-        } else {
-            if (Character.isLowerCase(names.charAt(0))){
-                System.out.println("Sorry, " + names + " need to start with uppercase letter");
-            } else{
-                System.out.println("Sorry, " + names + " is not a discovered pokemon");
-            }
-        }
-    }
+//    private static void checkPokName(String names, String input) {
+//        String queryStatement;
+//        queryStatement = "SELECT * FROM Poke WHERE Name = '" + names + "';";
+//        boolean ava = database.checkExist(queryStatement,names);
+//        if (ava) {
+//            database.runQuery(queryStatement);
+//        } else if (input.equals("END")) {
+//            return;
+//        } else {
+//            if (Character.isLowerCase(names.charAt(0))){
+//                System.out.println("Sorry, " + names + " need to start with uppercase letter");
+//            } else{
+//                System.out.println("Sorry, " + names + " is not a discovered pokemon");
+//            }
+//        }
+//    }
 }
