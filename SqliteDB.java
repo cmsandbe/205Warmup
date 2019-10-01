@@ -67,7 +67,7 @@ public class SqliteDB{
 
         // Using same code from above, create new table
         sql = "CREATE TABLE IF NOT EXISTS Stat(\n"
-                + "    TypeID integer PRIMARY KEY,\n"
+                + "    TypeID int PRIMARY KEY,\n"
                 + "    MaxCP int,\n"
                 + "    MaxHP int \n"
                 + ");";
