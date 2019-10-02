@@ -16,6 +16,7 @@ public class Query {
         System.out.println("RULES:");
         System.out.println("Enter the Pokemon name followed by the attribute you would like to look up.");
         System.out.println("Attributes include Type, SecondaryType, MaxCP, MaxHP, PictureOf");
+        System.out.println("Keep in mind: This program is case sensitive!");
         System.out.println("Example: Bulbasaur MaxCP");
         System.out.println("Enter END to terminate the program.");
         System.out.println();
