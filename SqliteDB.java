@@ -159,6 +159,23 @@ public class SqliteDB{
 		}
     }
     
+    public boolean testQuery(String queryStatement) {
+    	try {
+			this.statement = connection.createStatement();
+			ResultSet results = statement.executeQuery(queryStatement);
+
+			if(!results.next()) {
+
+				return false;
+			} else {
+				return true;
+			}
+		} catch (SQLException e) {
+            System.out.println("Error message: " + e.getMessage());
+            return false;
+		}
+    }
+    
     public void runStatsQuery(String queryStatement) {
     	try {
 			this.statement = connection.createStatement();

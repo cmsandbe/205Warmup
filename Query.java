@@ -42,8 +42,12 @@ public class Query {
 
             //  Just name
             if (atts.size() == 0) {
+//            	System.out.println("Please type in an attribute to search by!");
 //                checkPokName(name,input);
             } else {
+            	if(database.testQuery("SELECT * FROM Poke Where Name = '" + name + "';") == false) {
+            		System.out.println("Looks like that pokemon isn't in our database yet! Please try another one.");
+            	} else {
 //                checkPokName(name,input);
                 if (atts.contains("MaxCP") || atts.contains("MaxHP") || atts.contains("Type") || atts.contains("SecondaryType") || atts.contains("PictureOf")) {
                     if (atts.contains("MaxCP")) {
@@ -78,12 +82,13 @@ public class Query {
                     } else
                     if (atts.contains("PictureOf")) {
                         queryStatement = "SELECT * FROM Poke where name = '" + name + "';";
-
+                        
                         database.runQuery(queryStatement);
                     }
                 } else {
                     System.out.println("Invalid attribute.");
                 }
+            	}
             }
         }
 
