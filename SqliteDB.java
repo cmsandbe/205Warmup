@@ -138,26 +138,26 @@ public class SqliteDB{
     //		so I might have to have a lot of hardcoded query methods that return
     //		and assign only the different ways the user can ask for info
     //		OR if it lets me assign stuff thats not in the results, then I would only need this one method.
-//    public void runQuery(String queryStatement) {
-//    	try {
-//			this.statement = connection.createStatement();
-//			ResultSet results = statement.executeQuery(queryStatement);
-//
-//			while(results.next()) {
-//				int id = results.getInt("TypeID");
-//				String pokemonName = results.getString("Name");
-//				String imageUrl = results.getString("ImageURL");
-//				int primaryTypeID = results.getInt("T1ID");
-//				int secondaryTypeID = results.getInt("T2ID");
-//				System.out.println("Pokemon: " + pokemonName);
-//				
-//
-//
-//			}
-//		} catch (SQLException e) {
-//            System.out.println("Error message: " + e.getMessage());
-//		}
-//    }
+    public void runQuery(String queryStatement) {
+    	try {
+			this.statement = connection.createStatement();
+			ResultSet results = statement.executeQuery(queryStatement);
+
+			while(results.next()) {
+				int id = results.getInt("TypeID");
+				String pokemonName = results.getString("Name");
+				String imageUrl = results.getString("ImageURL");
+				int primaryTypeID = results.getInt("T1ID");
+				int secondaryTypeID = results.getInt("T2ID");
+				System.out.println(pokemonName + "'s" + " Picture is: " + imageUrl);
+				
+
+
+			}
+		} catch (SQLException e) {
+            System.out.println("Error message: " + e.getMessage());
+		}
+    }
     
     public void runStatsQuery(String queryStatement) {
     	try {
@@ -173,9 +173,7 @@ public class SqliteDB{
 				} else {
 				int maxHP = results.getInt("MaxHP");
 				System.out.println("Pokemon: " + pokemonName + " Has a MAX HP of " + maxHP);
-
 				}
-				//TODO: add logic of changing text and var to say max CP if user wants max CP
 
 
 			}
@@ -189,17 +187,23 @@ public class SqliteDB{
 
 			this.statement = connection.createStatement();
 			ResultSet results = statement.executeQuery(queryStatement);
-
+			
 
 			while(results.next()) {
 				String typeName = results.getString("typeName");
 				String pokemonName = results.getString("Name");
+				if(queryStatement.contains("t1id")) {
 				System.out.println("Pokemon: " + pokemonName + " Has a primary type of " + typeName);
+				} else if(queryStatement.contains("t2id")) {
+					System.out.println("Pokemon: " + pokemonName + " Has a Secondary type of " + typeName);
+				}
 				//TODO: add logic of changing text and var to say secondary type if its secondary type
 
 			}
+
 		} catch (SQLException | NullPointerException e) {
             System.out.println("Error message: " + e.getMessage());
+            System.out.println("Looks like that pokemon doesn't have a secondary type!");
 		}
     }
 

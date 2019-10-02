@@ -52,14 +52,14 @@ public class Query {
                                 "      INNER JOIN Stat\n" +
                                 "      ON Poke.typeid=Stat.typeid WHERE Name = '" + name + "';  ";
                         database.runStatsQuery(queryStatement);
-                    }
+                    } else
                     if (atts.contains("MaxHP")) {
                         queryStatement = "      SELECT Poke.TypeID, Poke.Name, Stat.MaxHP\n" +
                                 "      FROM Poke\n" +
                                 "      INNER JOIN Stat\n" +
                                 "      ON Poke.typeid=Stat.typeid WHERE Name = '" + name + "';  ";
                         database.runStatsQuery(queryStatement);
-                    }
+                    } else
                     if (atts.contains("Type")) {
                         queryStatement = "      SELECT Poke.Name, Type.typename\n" +
                                 "      FROM Poke\n" +
@@ -67,7 +67,7 @@ public class Query {
                                 "      ON Poke.t1id=Type.typeid WHERE Name = '" + name + "';";
 
                         database.runTypeQuery(queryStatement);
-                    }
+                    } else
                     if (atts.contains("SecondaryType")) {
                         queryStatement = "      SELECT Poke.Name, Type.typename\n" +
                                 "      FROM Poke\n" +
@@ -75,6 +75,11 @@ public class Query {
                                 "      ON Poke.t2id=Type.typeid WHERE Name = '" + name + "';";
 
                         database.runTypeQuery(queryStatement);
+                    } else
+                    if (atts.contains("PictureOf")) {
+                        queryStatement = "SELECT * FROM Poke where name = '" + name + "';";
+
+                        database.runQuery(queryStatement);
                     }
                 } else {
                     System.out.println("Invalid attribute.");
