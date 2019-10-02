@@ -12,7 +12,7 @@ query Data
 
 Provide user with result / output in clear way
 
-#IntelliJ IDEA notice
+# IntelliJ IDEA notice
 
 Before running this program on your IntelliJ IDEA IDE, please following the following steps:
 1. Click "File" from the toolbar
