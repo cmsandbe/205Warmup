@@ -29,7 +29,7 @@ public class Query {
             atts = new ArrayList<>();
 
             System.out.print("> ");
-            input = keyboard.nextLine();
+            input = keyboard.nextLine().trim();
 
             String[] words = input.split("\\s+");
 
@@ -43,7 +43,24 @@ public class Query {
 
             //  Just name
             if (atts.size() == 0) {
-//            	System.out.println("Please type in an attribute to search by!");
+            	if(!input.contains("END")) {
+                	if(database.testQuery("SELECT * FROM Poke Where Name = '" + name + "';") == false) {
+                		System.out.println("Looks like that pokemon isn't in our database yet! Please try another one.");
+                	}
+                	
+                	if(database.testQuery("SELECT * FROM Poke Where Name = '" + name + "';") == true) {
+//                		System.out.println("Please try again with a attribute!");
+                        queryStatement = "SELECT *\n" + 
+                        		"FROM Poke\n" + 
+                        		"JOIN Stat ON Stat.TypeID=Poke.TypeID\n" + 
+                        		"JOIN Type ON Type.typeID=Poke.T1ID\n" + 
+                        		"WHERE Name = '"+ name +"';\n" + 
+                        		"";
+                        database.getEverything(queryStatement);
+                		
+                	}
+
+            	}
 //                checkPokName(name,input);
             } else {
             	if(database.testQuery("SELECT * FROM Poke Where Name = '" + name + "';") == false) {
@@ -57,14 +74,14 @@ public class Query {
                                 "      INNER JOIN Stat\n" +
                                 "      ON Poke.typeid=Stat.typeid WHERE Name = '" + name + "';  ";
                         database.runStatsQuery(queryStatement);
-                    } else
+                    }
                     if (atts.contains("MaxHP")) {
                         queryStatement = "      SELECT Poke.TypeID, Poke.Name, Stat.MaxHP\n" +
                                 "      FROM Poke\n" +
                                 "      INNER JOIN Stat\n" +
                                 "      ON Poke.typeid=Stat.typeid WHERE Name = '" + name + "';  ";
                         database.runStatsQuery(queryStatement);
-                    } else
+                    }
                     if (atts.contains("Type")) {
                         queryStatement = "      SELECT Poke.Name, Type.typename\n" +
                                 "      FROM Poke\n" +
@@ -72,15 +89,15 @@ public class Query {
                                 "      ON Poke.t1id=Type.typeid WHERE Name = '" + name + "';";
 
                         database.runTypeQuery(queryStatement);
-                    } else
+                    }
                     if (atts.contains("SecondaryType")) {
                         queryStatement = "      SELECT Poke.Name, Type.typename\n" +
                                 "      FROM Poke\n" +
                                 "      INNER JOIN Type\n" +
                                 "      ON Poke.t2id=Type.typeid WHERE Name = '" + name + "';";
 
-                        database.runTypeQuery(queryStatement);
-                    } else
+                        database.runSecondaryTypeQuery(queryStatement);
+                    }
                     if (atts.contains("PictureOf")) {
                         queryStatement = "SELECT * FROM Poke where name = '" + name + "';";
                         

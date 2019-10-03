@@ -1,3 +1,8 @@
+//A lot of this code was made using the official Sqlite Java Tutorials and documentation: 
+//https://www.sqlitetutorial.net/sqlite-java/
+//I also refrenced this youtube video while creating the connection between java and the database:
+//https://www.youtube.com/watch?v=WmxJQiB1LyU after the 8 minute mark
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -176,6 +181,29 @@ public class SqliteDB{
 		}
     }
     
+    public void getEverything(String queryStatement) {
+    	try {
+			this.statement = connection.createStatement();
+			ResultSet results = statement.executeQuery(queryStatement);
+			
+			String pokemonName = results.getString("Name");
+			int maxHP = results.getInt("maxHP");
+			int maxCP = results.getInt("maxCP");
+			String imageUrl = results.getString("ImageURL");
+			String primaryType = results.getString("typeName");
+			System.out.println(pokemonName + "'s" + " MaxHP is " + maxHP + ", and their MaxCP is " + maxCP);
+			System.out.println("They have a primary type of " + primaryType);
+			System.out.print("And if you want to see a picture of them, here you go!:");
+			System.out.println(imageUrl);
+			
+
+		} catch (SQLException e) {
+            System.out.println("Error message: " + e.getMessage());
+		}
+    }
+    
+    
+    
     public void runStatsQuery(String queryStatement) {
     	try {
 			this.statement = connection.createStatement();
@@ -201,10 +229,14 @@ public class SqliteDB{
     
     public void runTypeQuery(String queryStatement) {
     	try {
-
+    		boolean secondType = true;
 			this.statement = connection.createStatement();
 			ResultSet results = statement.executeQuery(queryStatement);
-			
+//			if(!results.next()) {
+//	            System.out.println("Looks like that pokemon doesn't have a secondary type!");
+//	            secondType = false;
+//			}
+
 
 			while(results.next()) {
 				String typeName = results.getString("typeName");
@@ -217,6 +249,29 @@ public class SqliteDB{
 				//TODO: add logic of changing text and var to say secondary type if its secondary type
 
 			}
+
+			
+
+		} catch (SQLException | NullPointerException e) {
+            System.out.println("Error message: " + e.getMessage());
+		}
+    }
+    
+    public void runSecondaryTypeQuery(String queryStatement) {
+    	try {
+    		boolean secondType = true;
+			this.statement = connection.createStatement();
+			ResultSet results = statement.executeQuery(queryStatement);
+			if(!results.next()) {
+	            System.out.println("Looks like that pokemon doesn't have a secondary type!");
+	            secondType = false;
+			} else {
+				String typeName = results.getString("typeName");
+				String pokemonName = results.getString("Name");
+				System.out.println("Pokemon: " + pokemonName + " Has a Secondary type of " + typeName);
+
+			}
+			
 
 		} catch (SQLException | NullPointerException e) {
             System.out.println("Error message: " + e.getMessage());
